@@ -1,11 +1,26 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const fs = require('fs');
 
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 640,
-        height: 420
+        height: 420,
+        webPreferences: {
+            preload: path.join(__dirname, '/preload.js')
+        }
     });
+
+    ipcMain.handle('create-file', (req, data) => {
+        if(!data || !data.title || !data.content) return false;
+
+        const filePath = path.join(__dirname, 'notes', `${data.title}.txt`);
+        fs.writeFileSync(filePath,data.content);
+
+        return { success: true, filePath}
+    })
+    
 
     win.loadFile('src/index.html')
 }
