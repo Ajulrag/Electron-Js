@@ -1,0 +1,14 @@
+{
+  "name": "note-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "ajulrag",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.1.3"
+  }
+}
